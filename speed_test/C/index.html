@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RGB Slider</title>
+  </head>
+  <body>
+    <style type="text/css">
+      @import url(https://fonts.googleapis.com/css?family=Roboto:700);
+      :root{
+        --default: rgb(0, 0, 0);
+      }
+      body {
+        background-color: #ffffff;
+        text-align: center;
+        padding: 40px 0 0 0;
+      }
+      fieldset {
+        border: none;
+      }
+      #rgb {
+        background-color: var(--default);
+        width: 300px;
+        height: 300px;
+        border: 1px solid grey;
+        margin-bottom: 100px;
+      }
+      output {
+        display: inline-block;
+        min-width: 2.5em;
+      }
+      label,
+      output {
+        padding: 2px 9px;
+        border-radius: 3px;
+        font-family: "Roboto", sans-serif;
+        color: #000;
+        font-size: 1.1em;
+      }
+      label[for="r"],
+      output[for="r"] {
+        background-color: #f00;
+      }
+      label[for="g"],
+      output[for="g"] {
+        background-color: #0f0;
+      }
+      label[for="b"],
+      output[for="b"] {
+        background-color: #00f;
+      }
+    </style>
+
+    <output id="rgb">rgb(0, 0, 0)</output>
+
+    <fieldset>
+      <label for="r">R</label>
+      <input type="range" min="0" max="255" id="r" step="1" value="0" onchange="setColor()" />
+      <output for="r" id="r_out">0</output>
+    </fieldset>
+
+    <fieldset>
+      <label for="g">G</label>
+      <input type="range" min="0" max="255" id="g" step="1" value="0" onchange="setColor()" />
+      <output for="g" id="g_out">0</output>
+    </fieldset>
+
+    <fieldset>
+      <label for="b">B</label>
+      <input type="range" min="0" max="255" id="b" step="1" value="0" onchange="setColor()" />
+      <output for="b" id="b_out">0</output>
+    </fieldset>
+
+    <script type="text/javascript">
+        var r = document.querySelector("#r");
+        var g = document.querySelector("#g");
+        var b = document.querySelector("#b");
+        var r_out = document.querySelector("#r_out");
+        var g_out = document.querySelector("#g_out");
+        var b_out = document.querySelector("#b_out");
+        var rgb = document.querySelector("#rgb");
+
+      function setColor() {
+        let rgbColor = `rgb(${r.value}, ${g.value}, ${b.value})`
+        document.documentElement.style.setProperty('--default', rgbColor);
+        rgb.value = rgbColor;
+
+        r_out.value = r.value;
+        g_out.value = g.value;
+        b_out.value = b.value;
+      }
+
+    </script>
+  </body>
+</html>
