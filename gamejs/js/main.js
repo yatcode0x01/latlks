@@ -184,25 +184,25 @@ setInterval(function () {
 }, 1000);
 
 document.onkeydown = function (e) {
-  switch (e.keyCode) {
-    case 65:
+  switch (e.key) {
+    case 'a':
       if (config.arah != "kanan") {
         config.arah = "kiri";
       }
       break;
 
-    case 87:
+    case 'w':
       if (config.arah != "bawah") {
         config.arah = "atas";
       }
       break;
 
-    case 68:
+    case 'd':
       if (config.arah != "kiri") {
         config.arah = "kanan";
       }
       break;
-    case 83:
+    case 's':
       if (config.arah != "atas") {
         config.arah = "bawah";
       }
