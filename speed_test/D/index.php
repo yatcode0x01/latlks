@@ -1,39 +1,17 @@
 <?php
-$path = 'images/';
+session_start();
 $completeCaptcha = false;
 
-function fetchAllImages($path) {
-    $images = array();
-    if ( $img_dir = @opendir($path) ) {
-        while (false !== ($img_file = readdir($img_dir))) {
-            if (preg_match("/(\.gif|\.jpg|\.png|\.jpeg)$/", $img_file) ) {
-                $images[] = $img_file;
-            }
-        }
-        closedir($img_dir);
-    }
-    return $images;
-}
-
-function randomImages($ar) {
-    mt_srand((double)microtime() * 1000000);
-    $num = array_rand($ar);
-    return $ar[$num];
-}
-
-$files = fetchAllImages($path);
-
-$file = randomImages($files);
-$filename = preg_replace('/(.*)\\.[^\\.]*/', '$1', $file);
-
 if (isset($_POST['submit'])) {
-    $captcha = md5($_POST['captcha']);
-    if ($captcha == $filename) {
+    $correctCaptcha = $_SESSION['captcha'];
+    $inputCaptcha = $_POST['captcha'];
+    
+    if ($inputCaptcha == $correctCaptcha) {
         $completeCaptcha = true;
     }
 }
-?>
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,9 +66,16 @@ if (isset($_POST['submit'])) {
             cursor: pointer;
         }
     </style>
-    <?php if ($completeCaptcha == false) { ?>
+    <?php
+        
+        if ($completeCaptcha == true) { 
+    ?>
+      <div class="captcha">
+            Captcha is complete!
+        </div>  
+    <?php } else { ?>
         <div class="captcha">
-            <img src="<?php echo $path .'/'. $file; ?>">
+            <img src="captcha.php" alt="image">
             <form class="form-fields" method="post" action="">
                 <label>Catcha Value</label>
                 <input type="text" name="captcha"/>
@@ -98,11 +83,6 @@ if (isset($_POST['submit'])) {
                     <button type="submit" name="submit">Complete</button>
                 </div>
             </form>
-        </div>
-    <?php } ?>
-    <?php if ($completeCaptcha == true) { ?>
-        <div class="captcha">
-            You was complete this captcha.
         </div>
     <?php } ?>
 </body>
