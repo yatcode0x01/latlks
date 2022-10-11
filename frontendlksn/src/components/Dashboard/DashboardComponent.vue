@@ -12,7 +12,7 @@
         </div>
         <hr />
       </div>
-      <div class="poll-item mt-1" v-for="item in data" :key="item.id">
+      <a class="poll-item mt-1" v-for="item in data" :key="item.id" @click="show(item.id)">
         <div class="poll-title">{{ item.title }}</div>
         <div class="choice">
           <div
@@ -29,7 +29,7 @@
             <div class="progress-value">{{ choice.point }}%</div>
           </div>
         </div>
-      </div>
+      </a>
     </section>
   </main>
 </template>
@@ -59,5 +59,10 @@ export default {
       data: [],
     };
   },
+  methods:  {
+    show(id) {
+          this.$router.push(`/dashboard/poll/show/${id}`);
+    }
+  }
 };
 </script>

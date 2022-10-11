@@ -14,7 +14,7 @@
         <div class="alert alert-danger mt-1 ms-1 me-1" style="width: 97%;" v-if="error == true">
             {{ errorMessage }}
         </div>
-        <a class="poll-item" v-for="item in data" :key="item.id" @click="show(item.id, item.is_past)">
+        <a class="poll-item mt-1" v-for="item in data" :key="item.id" @click="show(item.id, item.is_past)">
           <div class="poll-title">{{ item.title }}</div>
           <div class="deadline">Deadline : {{ item.deadline }}</div>
           <span v-if="item.is_past == false" class="badge bg-primary ms-1">Active Vote</span>
@@ -23,6 +23,21 @@
           <span v-if="item.is_voted == true" class="badge bg-success ms-1">Vote Successfully!</span>
           <span v-if="item.is_voted == false" class="badge bg-warning ms-1">Haven't Voted Yet!</span>
 
+          <div class="choice" v-if="item.is_voted == true">
+          <div
+            class="choice-item"
+            v-for="choice in item.results"
+            :key="choice.id"
+          >
+            <div class="choice-option">
+              {{ choice.choice }} | {{ choice.count }} Voters
+            </div>
+            <progress :value="choice.point" max="100">
+              {{ choice.point }}
+            </progress>
+            <div class="progress-value">{{ choice.point }}%</div>
+          </div>
+        </div>
         </a>
       </section>
     </main>
