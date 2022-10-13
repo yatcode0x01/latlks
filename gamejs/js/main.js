@@ -38,19 +38,22 @@ let config = new Snake({
   el_layerGO: document.getElementById("gameover"),
   colorSnake: 'green',
   colorFood: 'red',
-  colorBoard: ['#718093', '#2f3640'],
+  colorBoard: ['#a4b0be', '#2f3640'],
   deadHitBoard: false,
   showFoodAt: 3000,
   removeFoodAt: 5000,
   maxFoodOnBoard: 5,
   gameSpeed: 150,
   maxHistorySnakePerSeconds: 10,
+  colorTrap: '#ffa502',
+  trap: []
 });
 
 config.drawPapan();
 config.drawSnake();
 config.drawFood();
 config.setScore();
+config.drawTrap();
 
 function init() {
   config.is_playing = true;

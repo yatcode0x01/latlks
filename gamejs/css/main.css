@@ -12,6 +12,7 @@
   --dark: #2f3542;
   --food: #fff;
   --snake: #000;
+  --trap: #000;
 }
 
 * {
@@ -153,6 +154,10 @@ tr:nth-of-type(odd) td:nth-of-type(odd) {
 
 .bg-food{
     background-color: var(--food) !important;
+}
+
+.bg-trap{
+  background-color: var(--trap) !important;
 }
 
 .bg-snake{

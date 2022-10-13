@@ -32,6 +32,8 @@ class Snake {
     this.gameSpeed = params.gameSpeed;
     this.maxFoodOnBoard = params.maxFoodOnBoard;
     this.maxHistorySnakePerSeconds = params.maxHistorySnakePerSeconds;
+    this.trap = params.trap;
+    this.colorTrap = params.colorTrap;
   }
 
   drawLeaderboard() {
@@ -216,24 +218,20 @@ class Snake {
   }
 
   lanjut() {
-    if (
-      this.snake[0][0] >= 0 &&
-      this.snake[0][0] <= this.col_x &&
-      this.snake[0][1] >= 0 &&
-      this.snake[0][1] <= this.col_y
-    ) {
+    if (this.snake[0][0] >= 0 && this.snake[0][0] <= this.col_x && this.snake[0][1] >= 0 && this.snake[0][1] <= this.col_y) {
       for (var i = 1; i < this.snake.length; i++) {
-        if (
-          this.snake[0][0] == this.snake[i][0] &&
-          this.snake[0][1] == this.snake[i][1]
-        ) {
+        if (this.snake[0][0] == this.snake[i][0] && this.snake[0][1] == this.snake[i][1]) {
+          return false;
+        }
+
+        if (this.trap[0][0] == this.snake[i][0] && this.trap[0][1] == this.snake[i][1]) {
           return false;
         }
       }
       return true;
     } else {
       if (this.deadHitBoard == true) {
-        return false
+        return false;
       }
 
       if (this.snake[0][1] == -1 && this.arah == "atas") {
@@ -275,20 +273,28 @@ class Snake {
     var x = Math.round(Math.random() * this.col_x);
     var y = Math.round(Math.random() * this.col_y);
     this.food = [[x, y]];
-  
+
     while (this.snake.includes(this.food)) {
       this.food = [[x, y]];
     }
     document.getElementById(x + "," + y).classList.add("bg-food");
   }
 
+  drawTrap() {
+    var x = Math.round(Math.random() * this.col_x);
+    var y = Math.round(Math.random() * this.col_y);
+    this.trap = [[x, y]];
+    document.getElementById(x + "," + y).classList.add("bg-trap");
+  }
+
   drawPapan() {
-    document.documentElement.style.setProperty('--board-x', this.boardXpixel);
-    document.documentElement.style.setProperty('--board-y', this.boardYpixel);
-    document.documentElement.style.setProperty('--snake', this.colorSnake);
-    document.documentElement.style.setProperty('--food', this.colorFood);
-    document.documentElement.style.setProperty('--board-0', this.colorBoard[0]);
-    document.documentElement.style.setProperty('--board-1', this.colorBoard[1]);
+    document.documentElement.style.setProperty("--board-x", this.boardXpixel);
+    document.documentElement.style.setProperty("--board-y", this.boardYpixel);
+    document.documentElement.style.setProperty("--snake", this.colorSnake);
+    document.documentElement.style.setProperty("--food", this.colorFood);
+    document.documentElement.style.setProperty("--trap", this.colorTrap);
+    document.documentElement.style.setProperty("--board-0", this.colorBoard[0]);
+    document.documentElement.style.setProperty("--board-1", this.colorBoard[1]);
     var papan = "";
     for (var i = 0; i < this.col_y; i++) {
       papan += `<tr>`;
